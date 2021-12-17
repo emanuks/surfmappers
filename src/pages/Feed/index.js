@@ -1,108 +1,105 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { SafeAreaView, FlatList, Keyboard } from 'react-native';
-import i18n from 'i18n-js';
-import { Ionicons } from '@expo/vector-icons';
+import React, { useState, useEffect } from "react";
+import { SafeAreaView, FlatList, Keyboard } from "react-native";
+import i18n from "i18n-js";
+import { Ionicons } from "@expo/vector-icons";
 
-import LazyImage from '../../components/LazyImage';
-import { Translations } from '../../i18n';
+import LazyImage from "../../components/LazyImage";
+import { Translations } from "../../i18n";
 i18n.translations = Translations;
 
-import { Post, Header, Name, Loading, 
-    SearchBox, HeaderContainer, ButtonContainer } from './styles';
+import {
+  Post,
+  Header,
+  Name,
+  Loading,
+  SearchBox,
+  HeaderContainer,
+  ButtonContainer,
+} from "./styles";
 
 export default function Feed() {
-    const [feed, setFeed] = useState([]);
-    const [page, setPage] = useState(1);
-    const [total, setTotal] = useState(0);
-    const [loading, setLoading] = useState(false);
-    const [refreshing, setRefreshing] = useState(false);
-    const [viewable, setViewable] = useState([]);
-    const [search, setSearch] = useState('');
+  const [feed, setFeed] = useState([]);
+  const [page, setPage] = useState(1);
+  const [total, setTotal] = useState(0);
+  const [loading, setLoading] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
+  const [search, setSearch] = useState("");
 
-    async function loadPage(pageNumber = page, shouldRefresh = false, searchText = search) {
-        if (total && pageNumber > total) return;
+  async function loadPage(
+    pageNumber = page,
+    shouldRefresh = false,
+    searchText = search
+  ) {
+    if (total && pageNumber > total) return;
 
-        setLoading(true);
+    setLoading(true);
 
-        let url = `https://my-json-server.typicode.com/emanuks/surfmappers/feed?_expand=author&_limit=5&_page=${pageNumber}`;
+    let url = `https://my-json-server.typicode.com/emanuks/surfmappers/feed?_expand=author&_limit=5&_page=${pageNumber}`;
 
-        if (searchText !== '') {
-            url += `&description_like=${searchText}`
-        }
-
-        const response = await fetch(
-            url
-        );
-
-        const data = await response.json();
-        const totalItems = response.headers.get('X-Total-Count');
-
-        setTotal(Math.ceil(totalItems / 5));
-        setFeed(shouldRefresh ? data : [... feed, ... data]);
-        setPage(pageNumber + 1);
-        setLoading(false);
+    if (searchText !== "") {
+      url += `&description_like=${searchText}`;
     }
 
-    useEffect(() => {
-        loadPage();
-    }, []);
+    const response = await fetch(url);
 
-    async function refreshList() {
-        setRefreshing(true);
+    const data = await response.json();
+    const totalItems = response.headers.get("X-Total-Count");
 
-        await loadPage(1 ,true);
+    setTotal(Math.ceil(totalItems / 5));
+    setFeed(shouldRefresh ? data : [...feed, ...data]);
+    setPage(pageNumber + 1);
+    setLoading(false);
+  }
 
-        setRefreshing(false);
-    }
+  useEffect(() => {
+    loadPage();
+  }, []);
 
-    function searchFeed() {
-        Keyboard.dismiss();
+  async function refreshList() {
+    setRefreshing(true);
 
-        loadPage(1, true, search);
-    }
+    await loadPage(1, true);
 
-    const handleViewableChanged = useCallback(({ changed }) => {
-        setViewable(changed.map(({ item }) => item.id));
-    }, []);
+    setRefreshing(false);
+  }
 
-    return (
-        <SafeAreaView>
-            <HeaderContainer>
-                <SearchBox 
-                    placeholder={i18n.t('whereYouSurfedToday')}
-                    onChangeText={setSearch}
-                    onSubmitEditing={() => searchFeed()}
-                />
-                <ButtonContainer bgColor='#f5f5f5' onPress={() => searchFeed()} >
-                    <Ionicons name="cog-outline" size={30} color="#5f5f5f" />
-                </ButtonContainer>
-            </HeaderContainer>
-            
-            <FlatList 
-                data={feed}
-                keyExtractor={post => String(post.id)}
-                onEndReached={() => loadPage()}
-                onEndReachedThreshold={0.1}
-                onRefresh={refreshList}
-                refreshing={refreshing}
-                onViewableItemsChanged={handleViewableChanged}
-                viewabilityConfig={{ viewAreaCoveragePercentThreshold: 20 }}
-                ListFooterComponent={loading && <Loading />}
-                renderItem={({ item }) => (
-                    <Post>
-                        <Header>
-                            <Name>{item.author.name}</Name>
-                        </Header>
+  function searchFeed() {
+    Keyboard.dismiss();
 
-                        <LazyImage 
-                            shouldLoad={viewable.includes(item.id)}
-                            aspectRatio={item.aspectRatio} 
-                            source={{ uri: item.images[0].uri }} 
-                            smallSource={{uri: item.small }} 
-                        />
-                    </Post>
-                )}
-            />
-        </SafeAreaView>
-    );
+    loadPage(1, true, search);
+  }
+
+  return (
+    <SafeAreaView>
+      <HeaderContainer>
+        <SearchBox
+          placeholder={i18n.t("whereYouSurfedToday")}
+          onChangeText={setSearch}
+          onSubmitEditing={() => searchFeed()}
+        />
+        <ButtonContainer bgColor="#f5f5f5" onPress={() => {}}>
+          <Ionicons name="cog-outline" size={30} color="#5f5f5f" />
+        </ButtonContainer>
+      </HeaderContainer>
+
+      <FlatList
+        data={feed}
+        keyExtractor={(post) => String(post.id)}
+        onEndReached={() => loadPage()}
+        onEndReachedThreshold={0.1}
+        onRefresh={refreshList}
+        refreshing={refreshing}
+        ListFooterComponent={loading && <Loading />}
+        renderItem={({ item }) => (
+          <Post>
+            <Header>
+              <Name>{item.author.name}</Name>
+            </Header>
+
+            <LazyImage aspectRatio={item.aspectRatio} sources={item.images} />
+          </Post>
+        )}
+      />
+    </SafeAreaView>
+  );
 }

@@ -1,49 +1,43 @@
-import React, { useState, useEffect } from "react";
-import { Animated } from "react-native";
+import React, { useState } from "react";
+import { View } from "react-native";
+import PagerView from "react-native-pager-view";
 
-import { Small, Original } from './styles';
+import Paginate from "../Paginate";
 
-const OriginalAnimated = Animated.createAnimatedComponent(Original);
+import { Original } from "./styles";
 
-export default function LazyImage({
-    smallSource,
-    source,
-    aspectRatio,
-    shouldLoad
-}) {
-    const opacity = new Animated.Value(0);
-    const [loaded, setLoaded] = useState(false);
+export default function LazyImage({ sources, aspectRatio }) {
+  const [currentPage, setCurrentPage] = useState(0);
 
-    useEffect(() => {
-        if (shouldLoad) {
-            setLoaded(true);
-        }
-    }, [shouldLoad]);
+  function handleScroll(e) {
+    setCurrentPage(e.nativeEvent.position);
+  }
 
-    function handleAnimate() {
-        Animated.timing(opacity, {
-            toValue: 1,
-            duration: 500,
-            useNativeDriver: true
-        }).start();
-    }
+  return (
+    <>
+      <PagerView
+        style={{ height: 470 }}
+        initialPage={0}
+        onPageScroll={handleScroll}
+      >
+        <View key="1">
+          <Original source={{ uri: sources[0].uri }} ratio={aspectRatio} />
+        </View>
+        <View key="2">
+          <Original source={{ uri: sources[1].uri }} ratio={aspectRatio} />
+        </View>
+        <View key="3">
+          <Original source={{ uri: sources[2].uri }} ratio={aspectRatio} />
+        </View>
+        <View key="4">
+          <Original source={{ uri: sources[3].uri }} ratio={aspectRatio} />
+        </View>
+        <View key="5">
+          <Original source={{ uri: sources[4].uri }} ratio={aspectRatio} />
+        </View>
+      </PagerView>
 
-    return(
-        <Small 
-            source={smallSource} 
-            ratio={aspectRatio} 
-            resizeMode="contain" 
-            blurRadius={2}
-        >
-            {
-                loaded && <OriginalAnimated 
-                    style={{ opacity }}
-                    source={source}
-                    ratio={aspectRatio}
-                    resizeMode="contain"
-                    onLoadEnd={handleAnimate}
-                />
-            }
-        </Small>
-    );
+      <Paginate currentPage={currentPage}/>
+    </>
+  );
 }
