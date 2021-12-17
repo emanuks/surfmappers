@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { SafeAreaView, FlatList, Keyboard } from "react-native";
+import { SafeAreaView, FlatList, Keyboard, Modal } from "react-native";
 import i18n from "i18n-js";
 import { Ionicons } from "@expo/vector-icons";
 
@@ -16,7 +16,12 @@ import {
   ButtonContainer,
   Link,
   LinkText,
-  LinkSubtitle
+  LinkSubtitle,
+  Button,
+  CenteredView,
+  ModalText,
+  ModalView,
+  TextStyle
 } from "./styles";
 
 export default function Feed() {
@@ -26,6 +31,7 @@ export default function Feed() {
   const [loading, setLoading] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
   const [search, setSearch] = useState("");
+  const [modalVisible, setModalVisible] = useState(false);
 
   async function loadPage(
     pageNumber = page,
@@ -73,13 +79,30 @@ export default function Feed() {
 
   return (
     <SafeAreaView>
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => setModalVisible(!modalVisible)}
+      >
+        <CenteredView>
+          <ModalView>
+            <ModalText>Hello World!</ModalText>
+            <Button
+              onPress={() => setModalVisible(!modalVisible)}>
+              <TextStyle>Hide Modal</TextStyle>
+            </Button>
+          </ModalView>
+        </CenteredView>
+      </Modal>
+
       <HeaderContainer>
         <SearchBox
           placeholder={i18n.t("whereYouSurfedToday")}
           onChangeText={setSearch}
           onSubmitEditing={() => searchFeed()}
         />
-        <ButtonContainer bgColor="#f5f5f5" onPress={() => {}}>
+        <ButtonContainer bgColor="#f5f5f5" onPress={() => setModalVisible(true)}>
           <Ionicons name="cog-outline" size={30} color="#5f5f5f" />
         </ButtonContainer>
       </HeaderContainer>
@@ -100,14 +123,18 @@ export default function Feed() {
                   {i18n.t(item.description)}
                 </LinkText>
                 <LinkSubtitle>
-                  {i18n.locale === 'pt-BR' ? i18n.t(item.weekDay) : i18n.t(weekDay)}
+                  {i18n.locale === 'pt-BR' ?
+                    (`${i18n.t(item.weekDay)}, ${item.day} ${i18n.t(item.month)} ${item.year}`)
+                    :
+                    (`${i18n.t(item.weekDay)}, ${i18n.t(item.month)} ${item.day} ${item.year}`)
+                  }
                 </LinkSubtitle>
               </Link>
             </Header>
 
-            <LazyImage 
-              aspectRatio={item.aspectRatio} 
-              sources={item.images} 
+            <LazyImage
+              aspectRatio={item.aspectRatio}
+              sources={item.images}
               isLast={feed.length === item.id ? true : false}
               author={item.author.name}
             />

@@ -10,12 +10,25 @@ import logo from './assets/logo.png';
 const { Navigator, Screen } = createNativeStackNavigator();
 
 export default function Routes() {
-    return(
+    return (
         <NavigationContainer>
             <Navigator>
-                <Screen 
-                    name="Feed" 
-                    component={Feed} 
+                <Screen
+                    name="Feed"
+                    component={Feed}
+                    options={{
+                        headerTitle: () => (
+                            <Image source={logo} />
+                        ),
+                        headerTitleAlign: 'center',
+                        headerStyle: {
+                            backgroundColor: '#F5F5F5'
+                        }
+                    }}
+                />
+                <Screen
+                    name="Post"
+                    component={Post}
                     options={{
                         headerTitle: () => (
                             <Image source={logo} />

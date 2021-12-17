@@ -60,3 +60,40 @@ export const ButtonContainer = styled.TouchableOpacity`
     borderRadius: 10px;
     backgroundColor: ${props => props.bgColor};
 `;
+
+export const CenteredView = styled.View`
+  flex: 1;
+  justifyContent: center;
+  alignItems: center;
+  marginTop: 22px;
+`;
+
+export const ModalView = styled.View`
+  margin: 20px;
+  backgroundColor: white;
+  borderRadius: 20px;
+  padding: 35px;
+  alignItems: center;
+  shadowColor: #000;
+  shadowOpacity: 0.25;
+  shadowRadius: 4px;
+  elevation: 5;
+`;
+
+export const Button = styled.Pressable`
+  borderRadius: 20px;
+  padding: 10px;
+  elevation: 2;
+  backgroundColor: #2196F3;
+`;
+
+export const TextStyle = styled.Text`
+  color: white;
+  fontWeight: bold;
+  textAlign: center;
+`;
+
+export const ModalText = styled.Text`
+  marginBottom: 15px;
+  textAlign: center;
+`;
