@@ -18,7 +18,7 @@ export default function Routes() {
                     component={Feed} 
                     options={{
                         headerTitle: () => (
-                          <Image source={logo} />
+                            <Image source={logo} />
                         ),
                         headerTitleAlign: 'center',
                         headerStyle: {
