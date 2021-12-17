@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { SafeAreaView, FlatList, Keyboard, Modal } from "react-native";
 import i18n from "i18n-js";
 import { Ionicons } from "@expo/vector-icons";
+import { Picker } from "@react-native-picker/picker";
+import { useNavigation } from "@react-navigation/native";
 
 import LazyImage from "../../components/LazyImage";
 import { Translations } from "../../i18n";
@@ -19,9 +21,9 @@ import {
   LinkSubtitle,
   Button,
   CenteredView,
-  ModalText,
   ModalView,
-  TextStyle
+  TextStyle,
+  Label
 } from "./styles";
 
 export default function Feed() {
@@ -32,6 +34,9 @@ export default function Feed() {
   const [refreshing, setRefreshing] = useState(false);
   const [search, setSearch] = useState("");
   const [modalVisible, setModalVisible] = useState(false);
+  const [selectedLanguage, setSelectedLanguage] = useState(i18n.locale);
+
+  const navigation = useNavigation();
 
   async function loadPage(
     pageNumber = page,
@@ -77,6 +82,10 @@ export default function Feed() {
     loadPage(1, true, search);
   }
 
+  function handlePostage(item) {
+    navigation.navigate('Postage', item);
+  }
+
   return (
     <SafeAreaView>
       <Modal
@@ -87,10 +96,21 @@ export default function Feed() {
       >
         <CenteredView>
           <ModalView>
-            <ModalText>Hello World!</ModalText>
+            <Label>{i18n.t('SelectLanguage')}</Label>
+            <Picker
+              style={{ width: 150 }}
+              selectedValue={selectedLanguage}
+              onValueChange={(itemValue) => {
+                i18n.locale = itemValue;
+                setSelectedLanguage(itemValue);
+              }}
+            >
+              <Picker.Item label={i18n.t('en')} value="en" />
+              <Picker.Item label={i18n.t('ptBR')} value="pt-BR" />
+            </Picker>
             <Button
               onPress={() => setModalVisible(!modalVisible)}>
-              <TextStyle>Hide Modal</TextStyle>
+              <TextStyle>{i18n.t('Return')}</TextStyle>
             </Button>
           </ModalView>
         </CenteredView>
@@ -118,7 +138,7 @@ export default function Feed() {
         renderItem={({ item }) => (
           <Post>
             <Header>
-              <Link>
+              <Link onPress={() => handlePostage(item)}>
                 <LinkText>
                   {i18n.t(item.description)}
                 </LinkText>

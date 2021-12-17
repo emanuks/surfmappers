@@ -12,7 +12,7 @@ export const Translations = {
         Fri: 'Friday',
         Sat: 'Saturday',
         Sun: 'Sunday',
-        January: 'January', 
+        January: 'January',
         February: 'February',
         March: 'March',
         April: 'April',
@@ -23,7 +23,11 @@ export const Translations = {
         September: 'September',
         October: 'October',
         November: 'November',
-        December: 'December'
+        December: 'December',
+        ptBR: 'Portuguese',
+        en: 'English',
+        Return: 'Return',
+        SelectLanguage: 'Select Language:'
     },
     'pt-BR': {
         whereYouSurfedToday: 'Onde você surfou hoje?',
@@ -38,7 +42,7 @@ export const Translations = {
         Fri: 'Sexta-Feira',
         Sat: 'Sábado',
         Sun: 'Domingo',
-        January: 'Janeiro', 
+        January: 'Janeiro',
         February: 'Fevereiro',
         March: 'Março',
         April: 'Abril',
@@ -49,6 +53,10 @@ export const Translations = {
         September: 'Setembro',
         October: 'Outubro',
         November: 'Novembro',
-        December: 'Dezembro'
+        December: 'Dezembro',
+        ptBR: 'Português',
+        en: 'Inglês',
+        Return: 'Voltar',
+        SelectLanguage: 'Selecione o Idioma:'
     }
 };

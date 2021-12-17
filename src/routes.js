@@ -4,6 +4,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import Feed from './pages/Feed';
+import Postage from './pages/Postage';
 
 import logo from './assets/logo.png';
 
@@ -27,8 +28,8 @@ export default function Routes() {
                     }}
                 />
                 <Screen
-                    name="Post"
-                    component={Post}
+                    name="Postage"
+                    component={Postage}
                     options={{
                         headerTitle: () => (
                             <Image source={logo} />
