@@ -1,6 +1,8 @@
 import styled from "styled-components/native";
 
 export const Post = styled.View`
+    border: 0px solid #ccc;
+    borderBottomWidth: 1px;
 `;
 
 export const Header = styled.View`
@@ -9,10 +11,15 @@ export const Header = styled.View`
     align-items: center;
 `;
 
-export const Name = styled.Text`
-    color: #333;
-    font-weight: bold;
+export const Link = styled.TouchableOpacity`
+    padding: 5px;
+    borderRadius: 10px;
 `;
+
+export const LinkText = styled.Text`
+    color: blue;
+    font-weight: bold;
+`
 
 export const Loading = styled.ActivityIndicator.attrs({
     size: 'small',
@@ -44,8 +51,12 @@ export const HeaderContainer = styled.View`
     borderBottomWidth: 1px;
 `;
 
+export const LinkSubtitle = styled.Text`
+    color: #5f5f5f;
+`;
+
 export const ButtonContainer = styled.TouchableOpacity`
-  padding: 5px;
-  borderRadius: 10px;
-  backgroundColor: ${props => props.bgColor};
+    padding: 5px;
+    borderRadius: 10px;
+    backgroundColor: ${props => props.bgColor};
 `;

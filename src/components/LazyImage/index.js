@@ -1,13 +1,19 @@
 import React, { useState } from "react";
-import { View } from "react-native";
+import { View, TouchableOpacity } from "react-native";
 import PagerView from "react-native-pager-view";
+import { Ionicons } from "@expo/vector-icons";
 
 import Paginate from "../Paginate";
 
-import { Original, Component } from "./styles";
+import { Original, Component,  Footer, Name } from "./styles";
 
-export default function LazyImage({ sources, aspectRatio, isLast = false }) {
+export default function LazyImage({ author, sources, aspectRatio, isLast = false }) {
   const [currentPage, setCurrentPage] = useState(0);
+  const [liked, setLiked] = useState(false);
+
+  function handleLike() {
+    setLiked(!liked);
+  }
 
   function handleScroll(e) {
     setCurrentPage(e.nativeEvent.position);
@@ -40,6 +46,11 @@ export default function LazyImage({ sources, aspectRatio, isLast = false }) {
         </PagerView>
 
         <Paginate currentPage={currentPage}/>
+
+        <Footer>
+          <Ionicons name={liked ? 'heart' : 'heart-outline'} size={30} color={liked ? '#ff0000' : '#5f5f5f'} onPress={() => handleLike()} />
+          <Name>{author}</Name>
+        </Footer>
       </Component>
     ) : (
       <>
@@ -66,6 +77,13 @@ export default function LazyImage({ sources, aspectRatio, isLast = false }) {
         </PagerView>
 
         <Paginate currentPage={currentPage}/>
+
+        <Footer>
+          <TouchableOpacity onPress={() => agregarFavoritos()}>
+            <Ionicons name={liked ? 'heart' : 'heart-outline'} size={30} color={liked ? '#ff0000' : '#5f5f5f'} onPress={() => handleLike()}/>
+          </TouchableOpacity>
+          <Name>{author}</Name>
+        </Footer>
       </>
     )}
     </>

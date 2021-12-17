@@ -10,11 +10,13 @@ i18n.translations = Translations;
 import {
   Post,
   Header,
-  Name,
   Loading,
   SearchBox,
   HeaderContainer,
   ButtonContainer,
+  Link,
+  LinkText,
+  LinkSubtitle
 } from "./styles";
 
 export default function Feed() {
@@ -93,10 +95,22 @@ export default function Feed() {
         renderItem={({ item }) => (
           <Post>
             <Header>
-              <Name>{item.author.name}</Name>
+              <Link>
+                <LinkText>
+                  {i18n.t(item.description)}
+                </LinkText>
+                <LinkSubtitle>
+                  {item.date}
+                </LinkSubtitle>
+              </Link>
             </Header>
 
-            <LazyImage aspectRatio={item.aspectRatio} sources={item.images} isLast={feed.length === item.id ? true : false} />
+            <LazyImage 
+              aspectRatio={item.aspectRatio} 
+              sources={item.images} 
+              isLast={feed.length === item.id ? true : false}
+              author={item.author.name}
+            />
           </Post>
         )}
       />
