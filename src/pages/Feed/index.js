@@ -100,7 +100,7 @@ export default function Feed() {
                   {i18n.t(item.description)}
                 </LinkText>
                 <LinkSubtitle>
-                  {item.date}
+                  {i18n.locale === 'pt-BR' ? i18n.t(item.weekDay) : i18n.t(weekDay)}
                 </LinkSubtitle>
               </Link>
             </Header>

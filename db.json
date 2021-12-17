@@ -20,7 +20,10 @@
                 }
             ],
             "aspectRatio": 0.834,
-            "date": "Thu - June - 24 - 2021",
+            "day": "24",
+            "month": "June",
+            "year": "2021",
+            "weekDay": "Thu",
             "description": "barraDaTijuca",
             "authorId": 1
         },
@@ -44,7 +47,10 @@
                 }
             ],
             "aspectRatio": 0.834,
-            "date": "Tue - November - 9 - 2021",
+            "day": "9",
+            "month": "November",
+            "year": "2021",
+            "weekDay": "Tue",
             "description": "pontaNegraBeach",
             "authorId": 2
         },
@@ -68,7 +74,10 @@
                 }
             ],
             "aspectRatio": 0.834,
-            "date": "Sun - August - 15 - 2021",
+            "day": "15",
+            "month": "August",
+            "year": "2021",
+            "weekDay": "Sun",
             "description": "gungaBeach",
             "authorId": 3
         },
@@ -92,7 +101,10 @@
                 }
             ],
             "aspectRatio": 0.834,
-            "date": "Fri - December - 17 - 2021",
+            "day": "17",
+            "month": "December",
+            "year": "2021",
+            "weekDay": "Fri",
             "description": "coqueirinhoBeach",
             "authorId": 4
         }
