@@ -21,3 +21,8 @@ export const Name = styled.Text`
   color: #333;
   fontWeight: bold;
 `;
+
+export const LikeNShare = styled.View`
+  display: flex;
+  flexDirection: row;
+`;

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { SafeAreaView, Modal } from 'react-native';
+import { SafeAreaView, Modal, FlatList, TouchableOpacity } from 'react-native';
 import i18n from 'i18n-js';
 import { Ionicons } from "@expo/vector-icons";
 import { Picker } from "@react-native-picker/picker";
@@ -14,17 +14,25 @@ import {
     ButtonContainer,
     Title,
     Subtitle,
-    TitleView
+    TitleView,
+    Name,
+    PostImage,
+    Post,
+    Footer,
+    LikeNShare
 } from './styles';
 
 export default function Postage({ route }) {
     const [modalVisible, setModalVisible] = useState(false);
     const [selectedLanguage, setSelectedLanguage] = useState(i18n.locale);
-    const { id, author, day, month, year, weekDay, images, description, aspectRatio } = route.params;
+    const [liked, setLiked] = useState(false);
+
+    const { author, day, month, year, weekDay, images, description, aspectRatio } = route.params;
+
     return (
         <SafeAreaView>
             <Modal
-                animationType="slide"
+                animationType="fade"
                 transparent={true}
                 visible={modalVisible}
                 onRequestClose={() => setModalVisible(!modalVisible)}
@@ -61,11 +69,37 @@ export default function Postage({ route }) {
                             (`${i18n.t(weekDay)}, ${i18n.t(month)} ${day} ${year}`)
                         }
                     </Subtitle>
+                    <Name>{author.name}</Name>
                 </TitleView>
                 <ButtonContainer bgColor="#f5f5f5" onPress={() => setModalVisible(true)}>
                     <Ionicons name="cog-outline" size={30} color="#5f5f5f" />
                 </ButtonContainer>
             </HeaderContainer>
-        </SafeAreaView >
+
+            <FlatList
+                data={images}
+                keyExtractor={(image) => String(image.uri)}
+                renderItem={({ item }) => (
+                    <Post>
+                        <PostImage
+                            aspectRatio={aspectRatio}
+                            source={{ uri: item.uri }}
+                        />
+
+                        <Footer>
+                            <LikeNShare>
+                                <Ionicons name={liked ? 'heart' : 'heart-outline'} size={30} color={liked ? '#ff0000' : '#5f5f5f'} onPress={() => setLiked(!liked)} />
+                                <TouchableOpacity>
+                                    <Ionicons name='share-social-outline' size={30} color='#5f5f5f' />
+                                </TouchableOpacity>
+                            </LikeNShare>
+                            <TouchableOpacity>
+                                <Ionicons name='cart-outline' size={30} color='red' />
+                            </TouchableOpacity>
+                        </Footer>
+                    </Post>
+                )}
+            />
+        </SafeAreaView>
     );
 }

@@ -3,10 +3,9 @@ import styled from "styled-components/native";
 export const HeaderContainer = styled.View`
     display: flex;
     flexDirection: row;
-    justifyContent: space-evenly;
+    justifyContent: space-between;
     alignItems: center;
-    paddingTop: 10px;
-    paddingBottom: 10px;
+    padding: 10px;
     border: 0px solid #ccc;
     borderBottomWidth: 1px;
 `;
@@ -21,7 +20,7 @@ export const CenteredView = styled.View`
   flex: 1;
   justifyContent: center;
   alignItems: center;
-  marginTop: 22px;
+  backgroundColor: rgba(0,0,0,0.5);
 `;
 
 export const ModalView = styled.View`
@@ -35,7 +34,7 @@ export const ModalView = styled.View`
   elevation: 5;
 `;
 
-export const Button = styled.Pressable`
+export const Button = styled.TouchableOpacity`
   borderRadius: 20px;
   padding: 8px;
   elevation: 2;
@@ -70,4 +69,31 @@ export const Title = styled.Text`
 export const Subtitle = styled.Text`
     fontSize: 12px;
     color: #5f5f5f;
+`;
+
+export const Name = styled.Text`
+  color: #333;
+  fontWeight: bold;
+  fontSize: 13px;
+`;
+
+export const PostImage = styled.Image`
+  width: 100%;
+  aspect-ratio: ${(props) => props.aspectRatio};
+`;
+
+export const Post = styled.View`
+`;
+
+export const Footer = styled.View`
+  display: flex;
+  padding: 15px;
+  flexDirection: row;
+  alignItems: center;
+  justifyContent: space-between;
+`;
+
+export const LikeNShare = styled.View`
+  display: flex;
+  flexDirection: row;
 `;

@@ -70,8 +70,9 @@ export default function Feed() {
 
   async function refreshList() {
     setRefreshing(true);
+    setSearch("");
 
-    await loadPage(1, true);
+    await loadPage(1, true, "");
 
     setRefreshing(false);
   }
@@ -89,7 +90,7 @@ export default function Feed() {
   return (
     <SafeAreaView>
       <Modal
-        animationType="slide"
+        animationType="fade"
         transparent={true}
         visible={modalVisible}
         onRequestClose={() => setModalVisible(!modalVisible)}
@@ -119,6 +120,7 @@ export default function Feed() {
       <HeaderContainer>
         <SearchBox
           placeholder={i18n.t("whereYouSurfedToday")}
+          value={search}
           onChangeText={setSearch}
           onSubmitEditing={() => searchFeed()}
         />

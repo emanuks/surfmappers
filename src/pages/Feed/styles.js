@@ -65,7 +65,7 @@ export const CenteredView = styled.View`
   flex: 1;
   justifyContent: center;
   alignItems: center;
-  marginTop: 22px;
+  backgroundColor: rgba(0,0,0,0.5);
 `;
 
 export const ModalView = styled.View`
@@ -79,7 +79,7 @@ export const ModalView = styled.View`
   elevation: 5;
 `;
 
-export const Button = styled.Pressable`
+export const Button = styled.TouchableOpacity`
   borderRadius: 20px;
   padding: 8px;
   elevation: 2;
