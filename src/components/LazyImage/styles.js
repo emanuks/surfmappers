@@ -5,9 +5,6 @@ export const Original = styled.Image`
   aspect-ratio: ${(props) => props.ratio};
 `;
 
-export const Container = styled.View`
-  display: flex;
-  flexDirection: column;
-  justifyContent: space-around;
-  alignItems: center;
+export const Component = styled.View`
+  marginBottom: 100px;
 `;

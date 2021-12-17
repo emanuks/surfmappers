@@ -96,7 +96,7 @@ export default function Feed() {
               <Name>{item.author.name}</Name>
             </Header>
 
-            <LazyImage aspectRatio={item.aspectRatio} sources={item.images} />
+            <LazyImage aspectRatio={item.aspectRatio} sources={item.images} isLast={feed.length === item.id ? true : false} />
           </Post>
         )}
       />
