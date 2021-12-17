@@ -31,34 +31,6 @@ export default function Postage({ route }) {
 
     return (
         <SafeAreaView>
-            <Modal
-                animationType="fade"
-                transparent={true}
-                visible={modalVisible}
-                onRequestClose={() => setModalVisible(!modalVisible)}
-            >
-                <CenteredView>
-                    <ModalView>
-                        <Label>{i18n.t('SelectLanguage')}</Label>
-                        <Picker
-                            style={{ width: 150 }}
-                            selectedValue={selectedLanguage}
-                            onValueChange={(itemValue) => {
-                                i18n.locale = itemValue;
-                                setSelectedLanguage(itemValue);
-                            }}
-                        >
-                            <Picker.Item label={i18n.t('en')} value="en" />
-                            <Picker.Item label={i18n.t('ptBR')} value="pt-BR" />
-                        </Picker>
-                        <Button
-                            onPress={() => setModalVisible(!modalVisible)}>
-                            <TextStyle>{i18n.t('Return')}</TextStyle>
-                        </Button>
-                    </ModalView>
-                </CenteredView>
-            </Modal>
-
             <HeaderContainer>
                 <TitleView>
                     <Title>{i18n.t(description)}</Title>
@@ -71,9 +43,6 @@ export default function Postage({ route }) {
                     </Subtitle>
                     <Name>{author.name}</Name>
                 </TitleView>
-                <ButtonContainer bgColor="#f5f5f5" onPress={() => setModalVisible(true)}>
-                    <Ionicons name="cog-outline" size={30} color="#5f5f5f" />
-                </ButtonContainer>
             </HeaderContainer>
 
             <FlatList

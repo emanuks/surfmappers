@@ -61,20 +61,20 @@ export const TitleView = styled.View`
 `;
 
 export const Title = styled.Text`
-    fontSize: 13px;
+    fontSize: 15px;
     fontWeight: bold;
     color: #2596be;
 `;
 
 export const Subtitle = styled.Text`
-    fontSize: 12px;
+    fontSize: 13px;
     color: #5f5f5f;
 `;
 
 export const Name = styled.Text`
   color: #333;
   fontWeight: bold;
-  fontSize: 13px;
+  fontSize: 14px;
 `;
 
 export const PostImage = styled.Image`
