@@ -97,7 +97,7 @@ export default function Feed() {
                         <LazyImage 
                             shouldLoad={viewable.includes(item.id)}
                             aspectRatio={item.aspectRatio} 
-                            source={{ uri: item.image }} 
+                            source={{ uri: item.images[0].uri }} 
                             smallSource={{uri: item.small }} 
                         />
                     </Post>
